@@ -1,0 +1,47 @@
+@startuml
+
+class Producto {
+  - id : Integer
+  - nombre : String
+  - precio : Double
+  - stock : Integer
+  - codigoBarras : CodigoBarras
+  - eliminado : Boolean
+}
+
+class CodigoBarras {
+  - id : Integer
+  - numero : String
+  - eliminado : Boolean
+}
+
+Producto "1" --> "1" CodigoBarras
+
+interface ProductoDao
+class ProductoDaoImpl
+ProductoDaoImpl ..|> ProductoDao
+
+interface CodigoBarrasDao
+class CodigoBarrasDaoImpl
+CodigoBarrasDaoImpl ..|> CodigoBarrasDao
+
+interface ProductoService
+class ProductoServiceImpl
+ProductoServiceImpl ..|> ProductoService
+
+interface CodigoBarrasService
+class CodigoBarrasServiceImpl
+CodigoBarrasServiceImpl ..|> CodigoBarrasService
+
+ProductoServiceImpl --> ProductoDaoImpl
+ProductoServiceImpl --> CodigoBarrasDaoImpl
+CodigoBarrasServiceImpl --> CodigoBarrasDaoImpl
+
+class AppMenu
+class Main
+
+Main --> AppMenu
+AppMenu --> ProductoServiceImpl
+AppMenu --> CodigoBarrasServiceImpl
+
+@enduml
